@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 from urllib.parse import urlparse
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -134,10 +136,10 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 INFLUXDB = {
-    "url": "https://us-east-1-1.aws.cloud2.influxdata.com",
-    "token": "nWq9EN73tYjn6ZRbyZA3clmxnI9TxKbX4OEHKsq1ADmbzMY6WDIDdszN7SvrpaARqEs9liDIqiNoqxis-6aAgQ==",
-    "org": "ENOSYS",
-    "bucket": "PLC_DATA",
+    "url": os.getenv("INFLUXDB_URL", "https://us-east-1-1.aws.cloud2.influxdata.com"),
+    "token": os.getenv("INFLUXDB_TOKEN", ""),
+    "org": os.getenv("INFLUXDB_ORG", "ENOSYS"),
+    "bucket": os.getenv("INFLUXDB_BUCKET", "PLC_DATA"),
 }
 
 ASGI_APPLICATION = "api.asgi.application"
